@@ -1,7 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 import connection from './index';
 
-class Users extends Model {
+class User extends Model {
   declare id: number;
   declare username: string;
   declare role: string;
@@ -9,7 +9,7 @@ class Users extends Model {
   declare password: string;
 }
 
-Users.init({
+User.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -34,4 +34,4 @@ Users.init({
   },
 }, { sequelize: connection, tableName: 'users', timestamps: false, underscored: true });
 
-export default Users;
+export default User;
