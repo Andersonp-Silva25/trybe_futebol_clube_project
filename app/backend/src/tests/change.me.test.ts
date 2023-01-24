@@ -11,6 +11,8 @@ import { Response } from 'superagent';
 import UserModel from '../database/models/User'
 import TeamModel from '../database/models/Team'
 import MatchModel from '../database/models/Match'
+import UserService from '../services/login.services'
+import IUser from '../interfaces/IUser';
 
 chai.use(chaiHttp);
 
@@ -52,4 +54,14 @@ describe('Seu teste', () => {
     expect(teamModel).to.be.instanceOf(TeamModel);
     expect(matchModel).to.be.instanceOf(MatchModel);
   });
+
+  it('Verifica se o login teve sucesso', async () => {
+    const login: IUser = {email: 'admin@admin.com', password: '123456'}
+    const response = await chai 
+      .request(app)
+      .post('/login')
+      .send(login)
+
+    expect(response.status).to.be.equal(200);
+  })
 });
