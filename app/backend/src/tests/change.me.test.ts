@@ -8,6 +8,10 @@ import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
 
+import UserModel from '../database/models/User'
+import TeamModel from '../database/models/Team'
+import MatchModel from '../database/models/Match'
+
 chai.use(chaiHttp);
 
 const { expect } = chai;
@@ -39,7 +43,13 @@ describe('Seu teste', () => {
   //   expect(...)
   // });
 
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
+  it('Verifica se instanciar as models de login', () => {
+    const userModel = new UserModel();
+    const teamModel = new TeamModel();
+    const matchModel = new MatchModel();
+
+    expect(userModel).to.be.instanceOf(UserModel);
+    expect(teamModel).to.be.instanceOf(TeamModel);
+    expect(matchModel).to.be.instanceOf(MatchModel);
   });
 });
