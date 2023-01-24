@@ -26,4 +26,13 @@ export default class Login {
 
     return { type: null, message: token };
   }
+
+  public async getRole(token: IUser) {
+    const { email }:IUser = token;
+    const result = await this._model.findOne({ where: { email } });
+    if (!result) {
+      return { type: 401, message: 'Invalid Token' };
+    }
+    return { type: null, message: result.role };
+  }
 }
