@@ -12,4 +12,10 @@ export default class TeamService {
     if (!result) return { type: 404, message: 'Not Found' };
     return { type: null, message: result };
   }
+
+  public async getTeamsById(id: string) {
+    const result = await this._model.findByPk(id);
+    if (!result) return { type: 404, message: 'Not Found' };
+    return { type: null, message: result };
+  }
 }
