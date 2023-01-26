@@ -27,4 +27,15 @@ export default class MatchesController {
       console.log(error);
     }
   };
+
+  public createMatch = async (req: Request, res: Response) => {
+    try {
+      const values = req.body;
+      const { type, message } = await this._matchesController.createMatch(values);
+      if (type) return res.status(type).json({ message });
+      return res.status(201).json(message);
+    } catch (error) {
+      console.log((error));
+    }
+  };
 }

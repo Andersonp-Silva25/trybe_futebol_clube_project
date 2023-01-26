@@ -1,5 +1,6 @@
 import MatchesModel from '../database/models/Match';
 import TeamModel from '../database/models/Team';
+import IMatch from '../interfaces/IMatch';
 
 export default class MatchesService {
   private _model;
@@ -28,6 +29,16 @@ export default class MatchesService {
       ],
     });
     if (!result) return { type: 404, message: 'Not Found' };
+    return { type: null, message: result };
+  }
+
+  public async createMatch(values: IMatch) {
+    const newMatch = {
+      ...values,
+      inProgress: 'true',
+    };
+    const result = await this._model.create(newMatch);
+    if (!result) return { type: 400, message: 'Bad Request' };
     return { type: null, message: result };
   }
 }
