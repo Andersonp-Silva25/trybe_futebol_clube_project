@@ -38,4 +38,15 @@ export default class MatchesController {
       console.log((error));
     }
   };
+
+  public updateMatchStatus = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const { type, message } = await this._matchesController.updateMatchStatus(id);
+      if (type) return res.status(type).json({ message });
+      return res.status(201).json({ message });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }

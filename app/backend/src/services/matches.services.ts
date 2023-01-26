@@ -41,4 +41,10 @@ export default class MatchesService {
     if (!result) return { type: 400, message: 'Bad Request' };
     return { type: null, message: result };
   }
+
+  public async updateMatchStatus(id: string) {
+    const result = await this._model.update({ inProgress: false }, { where: { id } });
+    if (!result) return { type: 400, message: 'Bad Request' };
+    return { type: null, message: 'Finished' };
+  }
 }
