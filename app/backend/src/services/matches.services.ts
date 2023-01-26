@@ -18,4 +18,16 @@ export default class MatchesService {
     if (!result) return { type: 404, message: 'Not Found' };
     return { type: null, message: result };
   }
+
+  public async getMatchesActivesOrFinished(inProgress: boolean) {
+    const result = await this._model.findAll({
+      where: { inProgress },
+      include: [
+        { model: TeamModel, as: 'homeTeam', attributes: ['teamName'] },
+        { model: TeamModel, as: 'awayTeam', attributes: ['teamName'] },
+      ],
+    });
+    if (!result) return { type: 404, message: 'Not Found' };
+    return { type: null, message: result };
+  }
 }
