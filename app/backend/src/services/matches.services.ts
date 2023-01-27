@@ -4,9 +4,11 @@ import IMatch from '../interfaces/IMatch';
 
 export default class MatchesService {
   private _model;
+  private _teamModel;
 
   constructor() {
     this._model = MatchesModel;
+    this._teamModel = TeamModel;
   }
 
   public async getMatches() {
@@ -33,18 +35,23 @@ export default class MatchesService {
   }
 
   public async createMatch(values: IMatch) {
+    const { homeTeamId, awayTeamId } = values;
+    const homeTeam = await this._teamModel.findOne({ where: { id: homeTeamId } });
+    const awayTeam = await this._teamModel.findOne({ where: { id: awayTeamId } });
+
+    if (!awayTeam || !homeTeam) {
+      return { type: 404, message: 'There is no team with such id!' };
+    }
     const newMatch = {
       ...values,
       inProgress: 'true',
     };
     const result = await this._model.create(newMatch);
-    if (!result) return { type: 400, message: 'Bad Request' };
     return { type: null, message: result };
   }
 
   public async updateMatchStatus(id: string) {
-    const result = await this._model.update({ inProgress: false }, { where: { id } });
-    if (!result) return { type: 400, message: 'Bad Request' };
-    return { type: null, message: 'Finished' };
+    await this._model.update({ inProgress: false }, { where: { id } });
+    return { message: 'Finished' };
   }
 }

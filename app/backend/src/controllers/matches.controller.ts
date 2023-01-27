@@ -42,9 +42,8 @@ export default class MatchesController {
   public updateMatchStatus = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const { type, message } = await this._matchesController.updateMatchStatus(id);
-      if (type) return res.status(type).json({ message });
-      return res.status(201).json({ message });
+      const { message } = await this._matchesController.updateMatchStatus(id);
+      return res.status(200).json({ message });
     } catch (error) {
       console.log(error);
     }
