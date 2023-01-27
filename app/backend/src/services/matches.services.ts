@@ -54,4 +54,14 @@ export default class MatchesService {
     await this._model.update({ inProgress: false }, { where: { id } });
     return { message: 'Finished' };
   }
+
+  public async updateMatchInProgress(id: string, homeTeam: number, awayTeam: number) {
+    await this._model.update({
+      homeTeamGoals: homeTeam,
+      awayTeamGoals: awayTeam,
+    }, { where: { id } });
+
+    const result = await this._model.findByPk(id);
+    return { message: result };
+  }
 }
