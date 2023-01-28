@@ -12,4 +12,9 @@ export default class LeaderboardController {
     const { message } = await this._leaderboardService.getLeaderBoardHome();
     return res.status(200).json(message);
   };
+
+  public getLeaderboardAway = async (req: Request, res: Response) => {
+    const { message } = await this._leaderboardService.getLeaderBoardAway();
+    return res.status(200).json(message);
+  };
 }
